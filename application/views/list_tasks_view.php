@@ -1,10 +1,10 @@
 
 <?php  if(isset($_COOKIE['isregistr']) && $_COOKIE['isregistr']=='true'){
-    echo '<a href="/index.php/auth/logout">Выйти</a>';
-}else{ echo '<a href="/index.php/auth">Аутентификация</a>';} ?>
+    echo '<a class="numbers" href="/index.php/auth/logout">Выйти</a>';
+}else{ echo '<a class="numbers" href="/index.php/auth">Аутентификация</a>';} ?>
 
 
-<form method="post" action="/index.php/<?php if(isset($_COOKIE['page'])) echo '?page='.$_COOKIE['page']; ?>">
+<form class="form" method="post" action="/index.php/<?php if(isset($_COOKIE['page'])) echo '?page='.$_COOKIE['page']; ?>">
    <div>
        <span>Сортировка по</span>
        <input type="submit" name="sort[email]" value="Email">
@@ -25,34 +25,34 @@
 	foreach($list as $row)
 	{
         if(isset($_COOKIE['isregistr']) && $_COOKIE['isregistr']=='true'){
-            $desc = '<input type="text" value= "'.$row['description'].'" name="upd['.$i.'][desc]">';
+            $desc = '<input type="text" value= "'.htmlspecialchars($row['description']).'" name="upd['.$i.'][desc]"  class="item">';
             if($row['is_check'] == 1)  $checked ='checked'; else  $checked ='';
-            $check = '<input type="checkbox"  name="upd['.$i.'][check]" '.$checked.'>'.'<input type="hidden"  name="upd['.$i.'][id]" value="'.$row['primarykey'].'">';
+            $check = '<input type="checkbox"  name="upd['.$i.'][check]" '.$checked.'>'.'<input type="hidden"  name="upd['.$i.'][id]" value="'.$row['primarykey'].'" class="item">';
             
         }
         else{
-            $desc = '<span>'.$row['description'].'</span>';
+            $desc = '<div class="item">'.htmlspecialchars($row['description']).'</div>';
             if($row['is_check']== 1){
                 $check_st = 'Задача выполнена';
             }
             else{
                  $check_st ='';
             }
-            $check = '<span>'.$check_st.'</span>';
+            $check = '<div class="item">'.$check_st.'</div>';
             
         }
         if($row['is_admin_upd']== 1){
-                $is_admin_upd = '<span>Отредактировано администратором</span>';
+                $is_admin_upd = '<div class="item item2">Отредактировано администратором</div>';
             }
         else{
             $is_admin_upd = '';
         }
-		echo '
-                <span>'.$row['email'].'</span>
-                <span>'.$row['name'].'</span>
+		echo ' <div class="task">
+                <div class="item">'.$row['email'].'</div>
+                <div class="item">'.htmlspecialchars($row['name']).'</div>
                 '.$desc.
                 $check.$is_admin_upd.'
-            
+            </div>
             <div class="clear"></div>';
         $i++;
 	}
@@ -65,7 +65,7 @@
 </form>
 
 
-<form method="post" action="/index.php/<?php if(isset($_COOKIE['page'])) echo '?page='.$_COOKIE['page']; ?>">
+<form class="form" method="post" action="/index.php/<?php if(isset($_COOKIE['page'])) echo '?page='.$_COOKIE['page']; ?>">
     <label for="desc">Email:</label>
     <input id="desc" name="addTask[email]" type="text" value="<?php if(isset($_POST["addTask"])) echo $_POST["addTask"]['email'] ?>">
     <label for="desc">Имя пользователя:</label>
@@ -80,17 +80,17 @@
     for($j=1; $j<=$countPage; $j++)
 	{
 		if($page == $j){
-            $class = 'class="active"';
+            $class = 'class="active numbers"';
         }
         else{
-            $class = '';
+            $class = 'class="numbers"';
         }
         echo  '<a href="?page='.$j.'" '.$class.' >'.$j.'</a>';
 	}
 
 echo '
 <div class="clear"></div>
-<span>'.$message.'</span>'
+<div class="item">'.$message.'</div>'
 ?>
 
 

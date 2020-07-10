@@ -1,0 +1,27 @@
+.task{
+    border: 2px solid black;
+    height: 80px;
+    padding: 70px 10px 0 10px;
+    margin: 10px 10px 0 10px;
+}
+.item {
+    display: inline-block;
+    width: 200px;
+
+}
+.item2 {
+    width: 250px;
+}
+
+.numbers{
+    text-decoration: none;
+    margin: 10px 10px 0 10px;
+}
+.form{
+    margin: 10px 10px 0 10px;
+    
+}
+
+.active{
+    text-decoration: underline;
+}
